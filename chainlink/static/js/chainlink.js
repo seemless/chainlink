@@ -6,6 +6,7 @@
  * To change this template use File | Settings | File Templates.
  */
 
+
 var chainlink = function(){
 
     var revCounts = [50,40,30,20,10,5];

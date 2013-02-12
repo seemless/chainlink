@@ -3,6 +3,7 @@ __author__ = 'Matthew Smith'
 #Standard libraries
 import json
 
+
 import operator
 #supported 3rd party packages
 from chainlink import app

@@ -3,6 +3,7 @@ jQuery.awesomeCloud v0.2 indyarmy.com
 by Russ Porosky
 IndyArmy Network, Inc.
 
+`
 Usage:
 	$( "#myContainer" ).awesomeCloud( settings );
 
