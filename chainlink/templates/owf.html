@@ -1,0 +1,77 @@
+<html xmlns="http://www.w3.org/1999/html">
+<head>
+    <title>Welcome to Chainlink</title>
+
+    <script type="text/javascript" src="/static/js/jquery-1.8.2.min.js"></script>
+    <script type="text/javascript" src="/static/js/jquery.awesomeCloud-0.2.MODIFIED.js"></script>
+    <script type="text/javascript" src='/static/js/chainlink.js'></script>
+    <script type="text/javascript" src='/static/js/owf-widget-min.js'></script>
+    <style type="text/css">
+        .chainlink_text {
+            color:white;
+        }
+        body {background-color:black;}
+        .wordcloud {
+            border: 1px solid #696969;
+            height: 5in;
+            margin: 0.5in auto;
+            padding: 0;
+            page-break-after: always;
+            page-break-inside: avoid;
+            width: 5in;
+        }
+    </style>
+    <script>
+
+        var channel = 'com.g2.trendywall.keyword';
+        OWF.relayFile = '/static/js/rpc_relay.uncompressed.html';
+        function trackerInit() {
+
+            var launchConfig = OWF.Launcher.getLaunchData();
+            if(!launchConfig) {
+                OWF.Eventing.subscribe(channel, this.update);
+            }
+            else {
+
+                var launchConfigJson = OWF.Util.parseJson(launchConfig);
+                var channelToUse = launchConfigJson.channel;
+                OWF.Eventing.subscribe(channelToUse, this.update);
+            }
+        }
+        /**
+         * The function called every time a message is received on the eventing channel
+         */
+        var update = function(sender, msg) {
+            chainlink.setKeyword(msg);
+            chainlink.update(50);
+        };
+
+        /**
+         * Listen for a special event then broadcast message.
+         */
+        $("#wordcloud").on('cloudEvent',function(event,data){
+            alert('cloud event happened');
+            chainlink.setKeyword(event.keyword);
+            chainlink.update(50);
+        })
+
+        owfdojo.addOnLoad(function() {
+            OWF.ready(trackerInit);
+        });
+
+    </script>
+
+</head>
+
+<body>
+
+
+    <div id="wordcloud" class='wordcloud'>Accumulating words for the wordcloud...</div>
+
+</div>
+
+
+</body>
+
+
+</html>
